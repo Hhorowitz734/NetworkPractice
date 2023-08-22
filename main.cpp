@@ -8,12 +8,11 @@
 #include <sys/socket.h>
 #include <sstream>
 
-#define PORT 5000
+#define PORT 5003
 
 //Goal -> I will follow the following tutorial
 //https://www.youtube.com/watch?v=F3iIGUiW27Q&t=2141s
 //and try to recreate it while writing comments, and then use the code to playground socket stuff.
-//Current timestamp: 26:12
 
 int main(){
 
@@ -60,8 +59,14 @@ int main(){
     //Main loop for waiting for clients
     while (true){
 
+
         //Accept any connections from clients here
-        socketClient = accept(socketServer, (struct sockaddr*)&caddr, (socklen_t*)&caddr);
+        socketClient = accept(socketServer, (struct sockaddr*)&caddr, &caddrSize);
+
+        if (socketClient == -1){
+            continue; //Continues if no client connected
+        }
+
         std::cout << "[SERVER]: Client connected successfully.\n";
 
         //Identifying the client
